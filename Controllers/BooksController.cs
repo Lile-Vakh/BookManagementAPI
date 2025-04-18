@@ -23,7 +23,7 @@ namespace BookManagementAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
         {
-            return await _context.Books.Where(book => book.deletedAt == null).ToListAsync();
+            return await _context.Books.Where(book => book.DeletedAt == null).ToListAsync();
         }
 
         [HttpGet("{id}")]
@@ -63,7 +63,7 @@ namespace BookManagementAPI.Controllers
             var book = await _context.Books.FindAsync(id);
             if (book == null) return NotFound();
 
-            book.deletedAt = DateTime.UtcNow;
+            book.DeletedAt = DateTime.UtcNow;
             _context.Entry(book).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
